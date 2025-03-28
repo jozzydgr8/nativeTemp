@@ -112,8 +112,8 @@ export default function App() {
       <Drawer.Navigator screenOptions={{
         drawerActiveTintColor:'#333',
         drawerActiveBackgroundColor:'lightblue',
-        drawerContentStyle:{
-          backgroundColor:'gray'
+        drawerStyle:{
+          backgroundColor:'white'
         }
       }}>
         <Drawer.Screen name="Home" component={HomeStack} options={{

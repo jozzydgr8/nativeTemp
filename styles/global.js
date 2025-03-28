@@ -6,15 +6,34 @@ export const globalStyle = StyleSheet.create({
             backgroundColor:'white',
             padding:16,
         },
+        content:{
+            flex:1
+        },
         TitleText:{
             fontFamily:'Roboto-bold',
             fontSize:24,
         },
-        items:{
+        input:{
             borderWidth:1,
-            borderStyle:"dashed",
-            padding:12,
-            marginBottom:10,
+            padding:10,
+            margin:5,
+            borderRadius:7,
+            
+        },
+        errormessage:{
+            color:'red',
+            fontWeight:'bold',
+            textAlign:'center'
         }
     
 })
+
+export const reviewImage = {
+    ratings:{
+        "1":require('../assets/rating-1.png'),
+        "2":require('../assets/rating-2.png'),
+        "3":require('../assets/rating-3.png'),
+        "4":require('../assets/rating-4.png'),
+        "5":require('../assets/rating-5.png'),
+    }
+}
