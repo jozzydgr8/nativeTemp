@@ -1,15 +1,80 @@
-// Only import react-native-gesture-handler on native platforms
 import 'react-native-gesture-handler';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 import { useEffect } from "react";
 import Home from "./screens/Home";
 import * as SplashScreen from 'expo-splash-screen';
 import { useFonts } from "expo-font";
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Review from "./screens/Review";
 import { Alert, TouchableWithoutFeedback, Text } from "react-native";
-import { createDrawerNavigator } from '@react-navigation/drawer';
+import Ionicons from '@expo/vector-icons/Ionicons'
+
+
 import About from './screens/About';
+
+const Stack = createNativeStackNavigator();
+const Drawer = createDrawerNavigator();
+
+
+// home stack  navigation
+
+ const HomeStack = ()=>{
+  const navigate = useNavigation();
+  return(
+    
+      <Stack.Navigator initialRouteName="Home" screenOptions={{
+        headerStyle:{
+          backgroundColor:"#6a51ae",
+        },
+        headerTintColor:'#fff',
+        headerTitleStyle:{fontWeight:"bold"},
+        headerRight:()=>(
+          <TouchableWithoutFeedback onPress={()=>navigate.toggleDrawer()}>
+            <Ionicons name='menu-outline' color={'white'} size={30}/>
+          </TouchableWithoutFeedback>
+        )
+       
+      }}>
+        <Stack.Screen name="Home" component={Home} 
+        options={{
+          title:'Books'
+        }}/>
+        <Stack.Screen name="Review" component={Review} initialParams={{name:'Guest'}} />
+      </Stack.Navigator>
+   
+  )
+}
+
+
+// aboutStack navigation
+
+const AboutStack = ()=>{
+  const navigate = useNavigation();
+  return(
+    
+      <Stack.Navigator initialRouteName="About" screenOptions={{
+        headerStyle:{
+          backgroundColor:"#6a51ae",
+        },
+        headerTintColor:'#fff',
+        headerTitleStyle:{fontWeight:"bold"},
+        headerRight:()=>(
+          <TouchableWithoutFeedback onPress={()=>navigate.toggleDrawer()}>
+            <Ionicons name='menu-outline' color={'white'} size={30}/>
+          </TouchableWithoutFeedback>
+        )
+       
+      }}>
+        <Stack.Screen name="About" component={About} 
+        options={{
+          title:'About'
+        }}/>
+       
+      </Stack.Navigator>
+   
+  )
+}
 
 export default function App() {
   const [loaded, error] = useFonts({
@@ -32,36 +97,17 @@ export default function App() {
     return null;
   }
 
-  const Stack = createNativeStackNavigator();
-  const Drawer = createDrawerNavigator();
+
+
 
   return (
     <>
-    {/* stack navigation stack navigation */}
-    {/* <NavigationContainer >
-      <Stack.Navigator initialRouteName="Home" screenOptions={{
-        headerStyle:{
-          backgroundColor:"#6a51ae",
-        },
-        headerTintColor:'#fff',
-        headerTitleStyle:{fontWeight:"bold"},
-        headerRight:()=>(
-          <TouchableWithoutFeedback onPress={()=>Alert.alert('Ateention', "meny opened", {text:'close'})}>
-            <Text style={{color:'#fff'}}>Menu</Text>
-          </TouchableWithoutFeedback>
-        )
-       
-      }}>
-        <Stack.Screen name="Home" component={Home} 
-        options={{
-          title:'Books'
-        }}/>
-        <Stack.Screen name="Review" component={Review} initialParams={{name:'Guest'}} />
-      </Stack.Navigator>
-    </NavigationContainer> */}
+    {/* nest drawer navigation stack navigation */}
+    
 
 
-    {/* drawer navigator drawer navigator */}
+    
+
     <NavigationContainer>
       <Drawer.Navigator screenOptions={{
         drawerActiveTintColor:'#333',
@@ -70,13 +116,17 @@ export default function App() {
           backgroundColor:'gray'
         }
       }}>
-        <Drawer.Screen name="home" component={Home} options={{
-          title:'dashboard',
-          drawerLabel:'dashboard label'
+        <Drawer.Screen name="Home" component={HomeStack} options={{
+          title:'Books',
+          drawerLabel:'Books',
+          headerShown:false
         }}/>
-        <Drawer.Screen name="About" component={About}/>
+        <Drawer.Screen name="About" component={AboutStack} options={{
+          headerShown:false
+        }}/>
       </Drawer.Navigator>
     </NavigationContainer>
+    
     </>
   );
 }
