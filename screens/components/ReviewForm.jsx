@@ -44,6 +44,7 @@ export default function ReviewForm({addReview}) {
 
           <TextInput
             multiline
+            minHeight={60}
             style={[
               globalStyle.input,
               { backgroundColor: "white", borderWidth: 1, borderColor: "gray", padding: 10 },
